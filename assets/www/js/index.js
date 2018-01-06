@@ -1,4 +1,4 @@
-//weui.searchBar('#searchBar');
+weui.searchBar('#searchBar');
 debug = false;
 questionData = null;
 nowQuestion = 0;
@@ -22,7 +22,7 @@ function turnTabLabelActive(tabid) {
     $(tabid).attr('class', 'weui-tabbar__item weui-bar__item_on');
 }
 function goToTestPage(id) {
-    $('#loadingToast').show()
+    $('#loadingToast').show();
     debuger("loading " + id);
     //$('#page4').text('');
     $.ajax({
@@ -61,7 +61,7 @@ function checkAnswerDx(qid) {
         }
 
     } else {
-        tmp = false
+        tmp = false;
     }
     if (tmp) {
         score = score + 1 ;
@@ -73,11 +73,12 @@ function checkAnswerDx(qid) {
         }
         for (i in rightA) {
             $("#qtypedx input.weui-check")[rightA[i]].checked = true;
-            $("#wrongAnswer").show();
+			//$("#qtypedx input.weui-check :eq(1)").animateCss('lightSpeedIn');
+            weui.topTips('答错啦',500);
         }
         setTimeout(function() {
-            $("#wrongAnswer").hide();
-            generateQuestions(nowQuestion + 1)
+            
+            generateQuestions(nowQuestion + 1);
         },
         1500);
     }
@@ -102,10 +103,11 @@ function checkAnswerPd(qid) {
             }
         }
     } else {
-        tmp = false
+        tmp = false;
     }
     if (tmp) {
         score = score + 1 ;
+		
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
     } else {
@@ -114,17 +116,17 @@ function checkAnswerPd(qid) {
         }
         for (i in rightA) {
             $("#qtypepd input.weui-check")[rightA[i]].checked = true;
-            $("#wrongAnswer").show();
+            weui.topTips('答错啦',500);
         }
         setTimeout(function() {
-            $("#wrongAnswer").hide();
-            generateQuestions(nowQuestion + 1)
+      
+            generateQuestions(nowQuestion + 1);
         },
         1500);
     }
 }
 function generateQuestions(qid) {
-    nowQuestion = qid
+    nowQuestion = qid;
     if (qid > questionData.length - 1) {
         turnPageOn('#page5');
         calcScore();
@@ -145,7 +147,7 @@ function generateQuestions(qid) {
             '<div class="weui-cell__hd">' + '<input type="checkbox" class="weui-check" name="checkbox1" id="a' + i + 
             '" value="' + i + '">' + '<i class="weui-icon-checked"></i>' + '</div>' + '<div class="weui-cell__bd">' + 
             '<p>' + chooses[i] + '</p>' + '</div>' + '</label>';
-            $('#qtypedx div.weui-cells').append(res)
+            $('#qtypedx div.weui-cells').append(res);
         }
     }
 
@@ -157,10 +159,23 @@ function generateQuestions(qid) {
 
 }
 $(function() {
-    setTimeout(function() {
-        $('#flashscreen').hide();
-    },
-    2000);
+    //setTimeout(function() {
+    //    $('#flashscreen').hide();
+    //},
+    //2000);
+	var vConsole = new VConsole();
+	$.fn.extend({
+    animateCss: function (animationName, callback) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        this.addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+            if (callback) {
+              callback();
+            }
+        });
+        return this;
+    }
+});
     $('#loadingToast').show() ;
     $.ajax({
         url: SERVER_IP+'/titles/',
@@ -171,8 +186,8 @@ $(function() {
                  ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' + 
                  '</div> <div class="weui-cell__ft">135人答题</div></a>';
                  $("#page1 div.weui-cells").append(res) ;
-                 $('#loadingToast').hide()
+                 $('#loadingToast').hide();
             }
         }
-    })
-})
+    });
+});

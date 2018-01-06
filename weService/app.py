@@ -15,11 +15,11 @@ def titles():
     resp= make_response('''
     [    {
                 'id':'1',
-                'title':'十九大应知应会100题'
+                'title':'十九大应知应会100题测试数据库'
                 },
                 {
                 'id':'2',
-                'title':'政治常识100题'
+                'title':'政治常识100题测试数据库'
                 }
                 ]
     ''',200)
@@ -35,14 +35,14 @@ def questions(qid):
     [    {
                 'id':'1',
                 'qtype':'dx',
-                'questiontext':'How much man likes woman?',
-                'answer':'[1,2]',
-                'chooses':'["1","10","dont know"]'
+                'questiontext':'中国共产党第十九次全国代表大会，是在全面建成小康社会决胜阶段、中国特色社会主义进入_____的关键时期召开的一次十分重要的大会。',
+                'answer':'[0]',
+                'chooses':'["新时代","新阶段","新征程","新时期"]'
                 },
                 {
                 'id':'2',
                 'qtype':'pd',
-                'questiontext':'do you like ck?',
+                'questiontext':'十九大的主题是：不忘初心，继续前进，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，为实现中华民族伟大复兴的中国梦不懈奋斗。',
                 'answer':'[1]',
                 'chooses':'[]'
                 }
@@ -50,7 +50,7 @@ def questions(qid):
                 {
                 'id':'2',
                 'qtype':'pd',
-                'questiontext':'Are u crazy?',
+                'questiontext':'Are u ok?',
                 'answer':'[0]',
                 'chooses':'[]'
                 }
