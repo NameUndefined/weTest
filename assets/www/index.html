@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" style="height:100%">
-  <head> 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>微理论</title>
-	<!-- 引入 WeUI -->
-	<link rel="stylesheet" href="css/weui.css"/>
-
-  </head> 
-  <body ontouchstart style="height:100%" >
-	  <div id='flashscreen' class="weui-animate-fade-in">
-		  <img src='img/flash.png' style='width:100%' class="weui-animate-slide-up">
-	  	<div  class='weui-mask'></div>
-		
-	</div>
-	<div class="weui-tab" style="height:100%">
-	  <div class="weui-tab__panel" >
-		<div class="weui-search-bar" id="searchBar">
-		  <form class="weui-search-bar__form">
-			<div class="weui-search-bar__box">
-			  <i class="weui-icon-search"></i>
-			  <input type="search" class="weui-search-bar__input" placeholder="搜索" required="">
-			  <a href="javascript:" class="weui-icon-clear"></a>
-			</div>
-			<label class="weui-search-bar__label">
-			  <i class="weui-icon-search"></i>
-			  <span>搜索</span>
-			</label>
-		  </form>
-		  <a href="javascript:" class="weui-search-bar__cancel-btn">取消</a>
-		</div>
-		<!--page1-->
-		<div id="page1" name="page" class="weui-animate-fade-in">
-		  <div class="weui-panel__hd">理论题库</div>
-		  <div class="weui-cells"> 
-			<!--<a class="weui-cell weui-cell_access" href="javascript:;"> 
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" /> 
+  <title>微理论</title> 
+  <!-- 引入 WeUI --> 
+  <link rel="stylesheet" href="css/weui.css" /> 
+ </head> 
+ <body ontouchstart="" style="height:100%"> 
+  <div id="flashscreen" class="weui-animate-fade-in"> 
+   <img src="img/flash.png" style="width:100%" class="weui-animate-slide-up" /> 
+   <div class="weui-mask"></div> 
+  </div> 
+  <div class="weui-tab" style="height:100%"> 
+   <div class="weui-tab__panel"> 
+    <div class="weui-search-bar" id="searchBar"> 
+     <form class="weui-search-bar__form"> 
+      <div class="weui-search-bar__box"> 
+       <i class="weui-icon-search"></i> 
+       <input type="search" class="weui-search-bar__input" placeholder="搜索" required="" /> 
+       <a href="javascript:" class="weui-icon-clear"></a> 
+      </div> 
+      <label class="weui-search-bar__label"> <i class="weui-icon-search"></i> <span>搜索</span> </label> 
+     </form> 
+     <a href="javascript:" class="weui-search-bar__cancel-btn">取消</a> 
+    </div> 
+    <!--page1--> 
+    <div id="page1" name="page" class="weui-animate-fade-in"> 
+     <div class="weui-panel__hd">
+      理论题库
+     </div> 
+     <div class="weui-cells"> 
+      <!--<a class="weui-cell weui-cell_access" href="javascript:;"> 
 			  <div class="weui-cell__bd"> 
 				<p>十九大应知应会100题</p> 
 			  </div> <div class="weui-cell__ft">135人答题</div>
@@ -44,154 +41,136 @@
 				<p>政治常识100题</p>
 			  </div>
 			  <div class="weui-cell__ft">146人答题</div> 
-			</a>-->
-		  </div>
-		  <div class="weui-footer">
-			<div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
-    <span class="weui-loadmore__tips"></span>
-</div>
-			<p class="weui-footer__text">Copyright &copy; 2018 王塬</p> 
-		  </div>
-		</div>
-		<div id="page2" name="page" style="display:none" class="weui-animate-fade-in">
-		  <!-- 图文组合列表 -->
-		  <div class="weui-panel weui-panel_access">
-			<!-- head 部分 -->
-			<div class="weui-panel__hd">最新理论学习资料</div>
-			<!-- body 部分 -->
-			<div class="weui-panel__bd">
-			  <!-- 一个列表条目 -->
-			  <a href="#" class="weui-media-box weui-media-box_appmsg">
-				<div class="weui-media-box__hd">
-				  <img src="" alt="" class="weui-media-box__thumb">
-				</div>
-				<div class="weui-media-box__bd">
-				  <h4 class="weui-media-box__title">十九大报告全文</h4>
-				  <p class="weui-media-box__desc">大会的主题是：不忘初心，牢记使命，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，为实现中华民族伟大复兴的中国梦不懈奋斗。[1]</p>
-				</div>
-			  </a>
-			</div>
-			<!-- foot 部分 -->
-			<div class="weui-panel__ft">
-			  <a href="#" class="weui-cell weui-cell_access weui-cell_link">
-				<div class="weui-cell__bd">查看更多</div>
-				<span class="weui-cell__ft"></span>
-			  </a>
-			</div>
-		  </div>
-		</div>
-		<!--User page-->
-		<div id="page3" name="page" style="display:none" class="weui-animate-fade-in">
-<div class="weui-grids">
-    <a href="javascript:;" class="weui-grid">
-        <div class="weui-grid__icon">
-            <img src="./images/icon_nav_button.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-            Button
-        </p>
-    </a>
-    <a href="javascript:;" class="weui-grid">
-        <div class="weui-grid__icon">
-            <img src="./images/icon_nav_cell.png" alt="">
-        </div>
-        <p class="weui-grid__label">
-            Cell
-        </p>
-    </a>
-</div>
-		</div>
-		<div id="page6" name="page" STYLE="display:none" >
-		</div>
-		<div id="page5" name="page" style="display:none" class="weui-animate-slide-up">
-<div class="weui-msg">
-    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
-    <div class="weui-msg__text-area">
-        <h2 id="scorePanel" class="weui-msg__title"></h2>
-        <p  class="weui-msg__desc"><a href="javascript:void(0);">Share to ......</a></p>
-    </div>
-    <div class="weui-msg__opr-area">
-        <p class="weui-btn-area">
-            <a href="javascript:generateQuestions(0);turnPageOn('#page4')" class="weui-btn weui-btn_primary">Try again?</a>
-            <a href="javascript:turnPageOn('#page1')" class="weui-btn weui-btn_default">Back to Main page</a>
-        </p>
-    </div>
-</div>			
-		</div>
-		<!--Test page-->
-		<div id="page4" style="display:none;" class="weui-animate-fade-in" name="page">
-			<div class="weui-progress">
-    <div class="weui-progress__bar">
-        <div class="weui-progress__inner-bar js_progress" style="width: 0%;"></div>
-    </div>
-</div>
-			<div id="qtypepd" name="qtype" class="weui-animate-fade-in">
-				<div class="weui-cells__title">DXT</div>
-				<div class="weui-cells weui-cells_radio">
-					<label class="weui-cell weui-check__label" class="weui-animate-fade-in" for="x11">
-					<div class="weui-cell__bd">
-						<p>Yes</p>
-					</div>
-					<div class="weui-cell__ft">
-						<input type="radio" class="weui-check" name="radio1" id="x11">
-						<span class="weui-icon-checked"></span>
-					</div>
-					</label>
-				<label class="weui-cell weui-check__label" class="weui-animate-fade-in"for="x12">
-					<div class="weui-cell__bd">
-						<p>No</p>
-					</div>
-					<div class="weui-cell__ft">
-						<input type="radio" name="radio1" class="weui-check" id="x12" >
-						<span class="weui-icon-checked"></span>
-					</div>
-				</label>
-				</div>
-			<div class="button-sp-area">
-				<p></p>
-				<a href="javascript:checkAnswerPd(nowQuestion);" class="weui-btn weui-btn_primary">Commit<i name='wrongAnswer'class="weui-icon-warn" style="display:none;"></i></a>
-			</div>
-			</div>
-			<div id="qtypedx" name="qtype" class="weui-animate-fade-in">
-				<div class="weui-cells__title">DXT</div>
-				<div class="weui-cells weui-cells_checkbox">
-	
-				</div>
-							<!--Control Panel-->
-			<div class="button-sp-area">
-				<p></p>
-				<a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn weui-btn_primary">Commit<i name='wrongAnswer'class="weui-icon-warn" style="display:none;"></i></a>
-			</div>
-			</div>			
-			
-		</div>
-	  </div>
-	  <div class="weui-tabbar">
-        <a id=bar1 name='tabbar_label' href="javascript:turnTabLabelActive('#bar1');turnPageOn('#page1');" class="weui-tabbar__item weui-bar__item_on">
-		  <img src="./img/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
-		  <p class="weui-tabbar__label">微答题</p>
-        </a>
-        <a id=bar2 name='tabbar_label' href="javascript:turnTabLabelActive('#bar2');turnPageOn('#page2');" class="weui-tabbar__item">
-		  <img src="./img/icon_nav_panel.png" alt="" class="weui-tabbar__icon">
-		  <p class="weui-tabbar__label">微理论</p>
-        </a>
-        <a id=bar3 name='tabbar_label'href="javascript:turnTabLabelActive('#bar3');turnPageOn('#page3');" class="weui-tabbar__item">
-		  <img src="./img/icon_nav_actionSheet.png" alt="" class="weui-tabbar__icon">
-		  <p class="weui-tabbar__label">关于</p>
-        </a>
-	  </div>
-	</div>
-
-	<div id="loadingToast" style="display:none;" >
-    <div class="weui-mask_transparent"></div>
-    <div class="weui-toast">
-        <i class="weui-loading weui-icon_toast"></i>
-        <p class="weui-toast__content">数据加载中</p>
-    </div>
-</div>
-	<script src="js/jquery-1.9.1.js"></script>
-	<script src="js/vconsole.min.js"></script>
-	<script src="js/weui.min.js"></script>
-	<script src="js/index.js"></script>
-  </body>
+			</a>--> 
+     </div> 
+     <div class="weui-footer"> 
+      <div class="weui-loadmore weui-loadmore_line weui-loadmore_dot"> 
+       <span class="weui-loadmore__tips"></span> 
+      </div> 
+      <p class="weui-footer__text">Copyright &copy; 2018 王塬</p> 
+     </div> 
+    </div> 
+    <div id="page2" name="page" style="display:none" class="weui-animate-fade-in"> 
+     <!-- 图文组合列表 --> 
+     <div class="weui-panel weui-panel_access"> 
+      <!-- head 部分 --> 
+      <div class="weui-panel__hd">
+       最新理论学习资料
+      </div> 
+      <!-- body 部分 --> 
+      <div class="weui-panel__bd"> 
+       <!-- 一个列表条目 --> 
+       <a href="#" class="weui-media-box weui-media-box_appmsg"> 
+        <div class="weui-media-box__hd"> 
+         <img src="" alt="" class="weui-media-box__thumb" /> 
+        </div> 
+        <div class="weui-media-box__bd"> 
+         <h4 class="weui-media-box__title">十九大报告全文</h4> 
+         <p class="weui-media-box__desc">大会的主题是：不忘初心，牢记使命，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，为实现中华民族伟大复兴的中国梦不懈奋斗。[1]</p> 
+        </div> </a> 
+      </div> 
+      <!-- foot 部分 --> 
+      <div class="weui-panel__ft"> 
+       <a href="#" class="weui-cell weui-cell_access weui-cell_link"> 
+        <div class="weui-cell__bd">
+         查看更多
+        </div> <span class="weui-cell__ft"></span> </a> 
+      </div> 
+     </div> 
+    </div> 
+    <!--User page--> 
+    <div id="page3" name="page" style="display:none" class="weui-animate-fade-in"> 
+     <div class="weui-grids"> 
+      <a href="javascript:;" class="weui-grid"> 
+       <div class="weui-grid__icon"> 
+        <img src="./images/icon_nav_button.png" alt="" /> 
+       </div> <p class="weui-grid__label"> Button </p> </a> 
+      <a href="javascript:;" class="weui-grid"> 
+       <div class="weui-grid__icon"> 
+        <img src="./images/icon_nav_cell.png" alt="" /> 
+       </div> <p class="weui-grid__label"> Cell </p> </a> 
+     </div> 
+    </div> 
+    <div id="page6" name="page" style="display:none"> 
+    </div> 
+    <div id="page5" name="page" style="display:none" class="weui-animate-slide-up"> 
+     <div class="weui-msg"> 
+      <div class="weui-msg__icon-area">
+       <i class="weui-icon-success weui-icon_msg"></i>
+      </div> 
+      <div class="weui-msg__text-area"> 
+       <h2 id="scorePanel" class="weui-msg__title"></h2> 
+       <p class="weui-msg__desc"><a href="javascript:void(0);">Share to ......</a></p> 
+      </div> 
+      <div class="weui-msg__opr-area"> 
+       <p class="weui-btn-area"> <a href="javascript:generateQuestions(0);turnPageOn('#page4')" class="weui-btn weui-btn_primary">Try again?</a> <a href="javascript:turnPageOn('#page1')" class="weui-btn weui-btn_default">Back to Main page</a> </p> 
+      </div> 
+     </div> 
+    </div> 
+    <!--Test page--> 
+    <div id="page4" style="display:none;" class="weui-animate-fade-in" name="page"> 
+     <div class="weui-progress"> 
+      <div class="weui-progress__bar"> 
+       <div class="weui-progress__inner-bar js_progress" style="width: 0%;"></div> 
+      </div> 
+     </div> 
+     <div id="qtypepd" name="qtype" class="weui-animate-fade-in"> 
+      <div class="weui-cells__title">
+       DXT
+      </div> 
+      <div class="weui-cells weui-cells_radio"> 
+       <label class="weui-animate-fade-in" for="x11"> 
+        <div class="weui-cell__bd"> 
+         <p>Yes</p> 
+        </div> 
+        <div class="weui-cell__ft"> 
+         <input type="radio" class="weui-check" name="radio1" id="x11" /> 
+         <span class="weui-icon-checked"></span> 
+        </div> </label> 
+       <label class="weui-animate-fade-in" for="x12"> 
+        <div class="weui-cell__bd"> 
+         <p>No</p> 
+        </div> 
+        <div class="weui-cell__ft"> 
+         <input type="radio" name="radio1" class="weui-check" id="x12" /> 
+         <span class="weui-icon-checked"></span> 
+        </div> </label> 
+      </div> 
+      <div class="button-sp-area"> 
+       <p></p> 
+       <a href="javascript:checkAnswerPd(nowQuestion);" class="weui-btn weui-btn_primary">Commit<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a> 
+      </div> 
+     </div> 
+     <div id="qtypedx" name="qtype" class="weui-animate-fade-in"> 
+      <div class="weui-cells__title">
+       DXT
+      </div> 
+      <div class="weui-cells weui-cells_checkbox"> 
+      </div> 
+      <!--Control Panel--> 
+      <div class="button-sp-area"> 
+       <p></p> 
+       <a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn weui-btn_primary">Commit<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="weui-tabbar"> 
+    <a id="bar1" name="tabbar_label" href="javascript:turnTabLabelActive('#bar1');turnPageOn('#page1');" class="weui-tabbar__item weui-bar__item_on"> <img src="./img/icon_nav_cell.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">微答题</p> </a> 
+    <a id="bar2" name="tabbar_label" href="javascript:turnTabLabelActive('#bar2');turnPageOn('#page2');" class="weui-tabbar__item"> <img src="./img/icon_nav_panel.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">微理论</p> </a> 
+    <a id="bar3" name="tabbar_label" href="javascript:turnTabLabelActive('#bar3');turnPageOn('#page3');" class="weui-tabbar__item"> <img src="./img/icon_nav_actionSheet.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">关于</p> </a> 
+   </div> 
+  </div> 
+  <div id="loadingToast" style="display:none;"> 
+   <div class="weui-mask_transparent"></div> 
+   <div class="weui-toast"> 
+    <i class="weui-loading weui-icon_toast"></i> 
+    <p class="weui-toast__content">数据加载中</p> 
+   </div> 
+  </div> 
+  <script src="js/jquery-1.9.1.js"></script> 
+  <script src="js/vconsole.min.js"></script> 
+  <script src="js/weui.min.js"></script> 
+  <script src="js/index.js"></script>   
+ </body>
 </html>
