@@ -3,6 +3,7 @@ debug = false;
 questionData = null;
 nowQuestion = 0;
 score = 0;
+SERVER_IP = 'township.ink:8001'
 function debuger(x) {
     if (debug) console.log(x);
 }
@@ -22,7 +23,7 @@ function goToTestPage(id) {
     $('#loadingToast').show() debuger("loading " + id);
     //$('#page4').text('');
     $.ajax({
-        url: 'http://localhost:5000/titles/' + id + '/',
+        url: SERVER_IP+'/titles/' + id + '/',
         success: function(data, status, xhr) {
             debuger(questionData) questionData = eval(data);
             debuger('evaled' + questionData) turnPageOn('#page4');
@@ -136,7 +137,7 @@ $(function() {
     },
     2000);
     $('#loadingToast').show() $.ajax({
-        url: 'http://localhost:5000/titles/',
+        url: SERVER_IP+'/titles/',
         success: function(data, status, xhr) {
             data = eval(data) for (i in data) {
                 res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' + ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' + '</div> <div class="weui-cell__ft">135人答题</div></a>'$("#page1 div.weui-cells").append(res) $('#loadingToast').hide()
