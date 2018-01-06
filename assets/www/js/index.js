@@ -9,7 +9,7 @@ function debuger(x) {
     console.log(x);
 }
 function calcScore() {
-    $("#scorePanel").text('你得到了 ' + score + ' 分 ' ）;//+ nowQuestion + ' questions!');
+    $("#scorePanel").text('你得到了 ' + score + ' 分 ');//+ nowQuestion + ' questions!');
     score = 0;
 }
 function turnPageOn(page) {
