@@ -6,27 +6,25 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= \
     'sqlite:///'+os.path.join(basedir,'database.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
 
+db = SQLAlchemy(app)
 
-db=SQLAlchemy(app)
 class Question(db.Model):
     __tablename__='questions'
-    id=db.Column(db.Integer,primary_key=True)
+    id = db.Column(db.Integer,primary_key=True)
     qtype = db.Column(db.Integer)
     title_id=db.Column(db.Integer,db.ForeignKey('titles.id'))
     questiontext=db.Column(db.Text)
     answer = db.Column(db.Text)
     chooses = db.Column(db.Text)
-    def to_json():
+    def to_json(self):
         json_question={
                 'id':self.id,
                 'qtype':self.qtype,
                 'title_id':self.title_id,
-                'question':self.questiontext,
+                'questiontext':self.questiontext,
                 'answer':self.answer,
-                'choose':self.chooses
+                'chooses':self.chooses
                 }
         return json_question
     def __repr__(self):
