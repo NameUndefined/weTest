@@ -3,14 +3,17 @@
 from flask import Flask,json,Response,make_response
 from flask_sqlalchemy import SQLAlchemy
 from database import *
+import os
 #app=Flask(__name__)
 
 
 db.init_app(app)
 #db.create_all()
-@app.route('/')
-def index():
-    return 'hello'
+@app.route('/pull')
+def pull():
+    os.chdir('c://zxdt-webroot/weTest')
+    return os.system('git pull')
+    #return 'hello'
 
 @app.route('/titles/')
 def titles():
