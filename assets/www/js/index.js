@@ -3,6 +3,8 @@ debug = false;
 questionData = null;
 nowQuestion = 0;
 score = 0;
+trans = {0:'a',1:'b',2:'c',3:'d',4:'e',5:'f',6:'g',7:'h',8:'i',
+            'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7,'i':8};
 SERVER_IP = 'http://township.ink:8001';
 SERVER_IP = 'http://localhost:5000';
 
@@ -53,7 +55,7 @@ function checkAnswerDx(qid) {
     j = 0
     for (i in $("#qtypedx input.weui-check")) {
         if ($("#qtypedx input.weui-check")[i].checked) {
-            alist.push(j);
+            alist.push(trans[j]);
         }
         j = j + 1;
     }
@@ -79,7 +81,7 @@ function checkAnswerDx(qid) {
             $("#qtypedx input.weui-check")[i].checked = false;
         }
         for (i in rightA) {
-            $("#qtypedx input.weui-check")[rightA[i]].checked = true;
+            $("#qtypedx input.weui-check")[trans[rightA[i]]].checked = true;
             //$("#qtypedx input.weui-check :eq(1)").animateCss('lightSpeedIn');
             weui.topTips('答错啦', 500);
         }
@@ -97,7 +99,7 @@ function checkAnswerPd(qid) {
     j = 0;
     for (i in $("#qtypepd input.weui-check")) {
         if ($("#qtypepd input.weui-check")[i].checked) {
-            alist.push(j);
+            alist.push(j?0:1);
         }
         j = j + 1;
     }

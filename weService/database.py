@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI']= \
     'sqlite:///'+os.path.join(basedir,'database.sqlite')
 
 db = SQLAlchemy(app)
-
+db.init_app(app)
 class Question(db.Model):
     __tablename__='questions'
     id = db.Column(db.Integer,primary_key=True)
