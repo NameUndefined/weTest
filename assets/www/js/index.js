@@ -174,7 +174,7 @@ $(function () {
     //    $('#flashscreen').hide();
     //},
     //2000);
-    var vConsole = new VConsole();
+    //var vConsole = new VConsole();
     $.fn.extend({
         animateCss: function (animationName, callback) {
             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
