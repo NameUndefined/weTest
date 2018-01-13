@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from flask import Flask,json,Response,make_response
-from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from database import *
 #app=Flask(__name__)
-api = Api(app)
+
 
 db.init_app(app)
 #db.create_all()
