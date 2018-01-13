@@ -9,6 +9,9 @@ import os
 
 db.init_app(app)
 #db.create_all()
+@app.route('/')
+def index():
+    return 'Nice to meet u!'
 @app.route('/pull')
 def pull():
     os.chdir('c://zxdt-webroot/weTest')
