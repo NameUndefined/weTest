@@ -5,7 +5,11 @@ import sys,os,json
 
 f = file('store.txt')
 f.seek(0)
-title_id = 1
+title = f.readline().decode('utf-8')
+newTitle = Title(title=title)
+db.session.add(newTitle)
+db.session.commit()
+title_id = newTitle.id
 while True :
     tmp = f.readline()
     tmp =tmp.decode('utf-8')
@@ -24,7 +28,6 @@ while True :
             QANSWER = tmp[4:len(tmp)-2].lower().split(',')
         q = Question(qtype='dx',title_id=title_id,questiontext=QTEXT,answer=json.dumps(QANSWER),chooses=json.dumps(QCHOOSES))
         db.session.add(q)
-        db.session.commit()
     if tmp[:5] == '[QPD]':
         QTEXT = tmp[5:]
         tmp =f.readline().decode('utf-8')
@@ -32,4 +35,5 @@ while True :
             QANSWER =[ int(tmp[4:len(tmp)-1]) ]
         q = Question(qtype='pd',title_id=title_id,questiontext=QTEXT,answer=json.dumps(QANSWER),chooses=json.dumps(QCHOOSES))
         db.session.add(q)
-        db.session.commit()
+
+db.session.commit()

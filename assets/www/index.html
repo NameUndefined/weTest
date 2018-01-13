@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/weui.css" />
 	<link rel="stylesheet" href="css/animate.css" />
 	<style>
-		
+
 	</style>
 </head>
 
@@ -39,7 +39,7 @@
 					<div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
 						<span class="weui-loadmore__tips"></span>
 					</div>
-					<p class="weui-footer__text">Copyright &copy; 2018 王塬</p>
+					<p class="weui-footer__text">Copyright &copy; 2018 王塬 测试版本243</p>
 				</div>
 			</div>
 			<!--理论学习列表页面-->
@@ -53,23 +53,15 @@
 					<!-- body 部分 -->
 					<div class="weui-panel__bd">
 						<!-- 一个列表条目 -->
-						<a href="#" class="weui-media-box weui-media-box_appmsg">
-							<div class="weui-media-box__hd">
-								<img src="" alt="" class="weui-media-box__thumb" />
-							</div>
-							<div class="weui-media-box__bd">
-								<h4 class="weui-media-box__title">十九大报告全文</h4>
-								<p class="weui-media-box__desc">大会的主题是：不忘初心，牢记使命，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，为实现中华民族伟大复兴的中国梦不懈奋斗。[1]</p>
-							</div>
-						</a>
+
 					</div>
 					<!-- foot 部分 -->
-					<div class="weui-panel__ft">
+<!-- 					<div class="weui-panel__ft">
 						<a href="#" class="weui-cell weui-cell_access weui-cell_link">
 							<div class="weui-cell__bd">
 								查看更多
 							</div> <span class="weui-cell__ft"></span> </a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<!--用户页面-->
@@ -109,9 +101,19 @@
 						</div>
 						<p class="weui-grid__label"> 设置 </p>
 					</a>
+										<a href="javascript:localStorage.clear();weui.alert('清除成功')" class="weui-grid">
+						<div class="weui-grid__icon">
+							<img src="./img/icon_nav_cell.png" alt="" />
+						</div>
+						<p class="weui-grid__label"> 清除本地数据 </p>
+					</a>
 				</div>
 			</div>
+			<!--文章页面-->
 			<div id="page6" name="page" style="display:none">
+				<iframe  style="width:100%;border:0;" src=''>
+
+				</iframe>
 			</div>
 			<!--答题结果清算页面-->
 			<div id="page5" name="page" style="display:none" class="weui-animate-slide-up">
@@ -136,7 +138,7 @@
 						<div class="weui-progress__inner-bar js_progress" style="width: 0%;"></div>
 					</div>
 				</div>
-				<div id="qtypepd" name="qtype" class="weui-animate-fade-in">
+				<div id="qtypepd" name="qtype">
 					<div class="weui-cells__title">
 						DXT
 					</div>
@@ -194,9 +196,9 @@
 		<div class="weui-mask"></div>
 		<div class="weui-dialog">
 			<div class="weui-dialog__hd"><strong class="weui-dialog__title">请设置你的姓名</strong></div>
-			<input class="weui-input" type="text" placeholder="请输入姓名"/>
+			<input class="weui-input" type="text" placeholder="请输入姓名" />
 			<div class="weui-dialog__ft">
-				<a id = 'btn_setnick' href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+				<a id='btn_setnick' href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
 			</div>
 		</div>
 	</div>

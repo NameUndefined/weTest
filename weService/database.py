@@ -43,7 +43,22 @@ class Title(db.Model):
         return json_title
     def __repr__(self):
         return '<Title %r>' % self.title
-
+class Article(db.Model):
+    __tablename__='articles'
+    id=db.Column(db.Integer,primary_key=True)
+    title=db.Column(db.Text,unique=True)
+    url=db.Column(db.Text)
+    intro =db.Column(db.Text)
+    def to_json(self):
+        json_title={
+                'id':self.id,
+                'title':self.title,
+                'url':self.url,
+                'intro':self.intro
+                }
+        return json_title
+    def __repr__(self):
+        return '<Article %r>' % self.title
 class User(db.Model):
     __tablename__='users'
     id=db.Column(db.Integer,primary_key=True)

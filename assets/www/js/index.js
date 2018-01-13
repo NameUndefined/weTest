@@ -67,10 +67,10 @@ function showRecords(id) {
 }
 
 function calcScore() {
-    $("#scorePanel").text('你得到了 ' + score + ' 分 '); //+ nowQuestion + ' questions!');
+    $("#scorePanel").text('你得到了 ' + score/nowQuestion*100 + ' 分 '); //+ nowQuestion + ' questions!');
     $.ajax({
         //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
-        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score + '/[' + wrongs + ']',
+        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score/nowQuestion*100 + '/[' + wrongs + ']',
         success: function (data, status, xhr) {
             //data = eval(data);
             weui.toast('成绩与错题记录上传成功');
@@ -98,6 +98,7 @@ function turnTabLabelActive(tabid) {
 function goToTestPage(id) {
     $('#loadingToast').show();
     nowTitle = id;
+    score = 0;
     debuger("loading " + id);
     //$('#page4').text('');
     $.ajax({
@@ -150,13 +151,14 @@ function checkAnswerDx(qid) {
         }
         for (i in rightA) {
             $("#qtypedx input.weui-check")[trans[rightA[i]]].checked = true;
-            //$("#qtypedx input.weui-check :eq(1)").animateCss('lightSpeedIn');
+            $("#qtypedx label :eq("+trans[rightA[i]]+")").removeClass('weui-animate-slide-up');
+            $("#qtypedx label :eq("+trans[rightA[i]]+")").animateCss('bounceIn');
             weui.topTips('答错啦', 500);
         }
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
             },
-            1500);
+            1000);
     }
 }
 
@@ -255,6 +257,8 @@ $(function () {
         }
     });
     $('#loadingToast').show();
+    $('#page6 iframe').height(window.innerHeight)
+    $('#page6 iframe')[0].onload = function(){debuger('loaded');$('#loadingToast').hide();}
     $.ajax({
         url: SERVER_IP + '/titles/',
         success: function (data, status, xhr) {
@@ -265,6 +269,25 @@ $(function () {
                     '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">排行榜</div></a>';
                 $("#page1 div.weui-cells").append(res);
                 $('#loadingToast').hide();
+            }
+        }
+    });
+    $.ajax({
+        url: SERVER_IP + '/articles/',
+        success: function (data, status, xhr) {
+            data = eval(data);
+            for (i in data) {
+                res ='<a href="javascript:$(\'#loadingToast\').show();$(\'#page6 iframe\')[0].src=\''+data[i].url+'\';turnPageOn(\'#page6\');" class="weui-media-box weui-media-box_appmsg">'
+					+		'<div class="weui-media-box__hd">'
+					+			'<img src="img/icon_nav_search_bar.png" alt="" class="weui-media-box__thumb" />'
+					+		'</div>'
+					+		'<div class="weui-media-box__bd">'
+					+			'<h4 class="weui-media-box__title">'+data[i].title+'</h4>'
+					+			'<p class="weui-media-box__desc">'+data[i].intro+'</p>'
+					+		'</div>'
+					+	'</a>'
+                $("#page2 div.weui-panel__bd").append(res);
+                
             }
         }
     });
@@ -288,7 +311,7 @@ $(function () {
                 }
             });
         };
-
-
+    }else{
+        weui.toast("欢迎回来 "+localStorage.myNick);
     }
 });

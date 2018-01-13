@@ -24,7 +24,7 @@ def pushrecord(titleid,userIMEI,userScore,wrong):
 
 @app.route('/getrecord/<titleid>')
 def getrecord(titleid):
-    r = Record().query.filter_by(titleID=titleid).order_by('userScore').all()
+    r = Record().query.filter_by(titleID=titleid).order_by('userScore').limit(5).all()
     resp= make_response(json.dumps([records.to_json() for records in r]))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
@@ -45,7 +45,12 @@ def titles():
     resp= make_response(json.dumps([title.to_json() for title in t]))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
-
+@app.route('/articles/')
+def articles():
+    t = Article.query.all()
+    resp= make_response(json.dumps([title.to_json() for title in t]))
+    resp.headers['Access-Control-Allow-Origin']='*'
+    return resp
 @app.route('/titles/<qid>/')
 def questions(qid):
     qid=int(qid)
