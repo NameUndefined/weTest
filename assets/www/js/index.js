@@ -2,19 +2,85 @@ weui.searchBar('#searchBar');
 debug = false;
 questionData = null;
 nowQuestion = 0;
+nowTitle = null;
 score = 0;
-trans = {0:'a',1:'b',2:'c',3:'d',4:'e',5:'f',6:'g',7:'h',8:'i',
-            'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7,'i':8};
+wrongs = [];
+trans = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    3: 'd',
+    4: 'e',
+    5: 'f',
+    6: 'g',
+    7: 'h',
+    8: 'i',
+    'a': 0,
+    'b': 1,
+    'c': 2,
+    'd': 3,
+    'e': 4,
+    'f': 5,
+    'g': 6,
+    'h': 7,
+    'i': 8
+};
+myIMEI = '123';
 SERVER_IP = 'http://township.ink:8001';
-//SERVER_IP = 'http://localhost:5000';
+SERVER_IP = 'http://localhost:5000';
 
 function debuger(x) {
     if (debug)
         console.log(x);
 }
 
+function showRecords(id) {
+    $.ajax({
+        //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
+        url: SERVER_IP + '/getrecord/' + id,
+        success: function (data, status, xhr) {
+            data = eval(data);
+            var tmp2 = ''
+            for (i in data) {
+                s = data[i].score;
+                n = data[i].imei;
+                tmp = 'ID:' + n + ' SCORE:' + s + '<br/>';
+                tmp2 = tmp2 + tmp
+            }
+            var dialog = weui.dialog({
+                title: '排行榜',
+                content: tmp2,
+                buttons: [ {
+                    label: '确定',
+                    type: 'primary',
+                    onClick: function () {
+                        dialog.hide()
+                    }
+                }]
+            });
+        },
+        error: function () {
+            weui.alert('成绩与错题记录上传失败!');
+            wrongs = [];
+        }
+    });
+}
+
 function calcScore() {
     $("#scorePanel").text('你得到了 ' + score + ' 分 '); //+ nowQuestion + ' questions!');
+    $.ajax({
+        //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
+        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score + '/[' + wrongs + ']',
+        success: function (data, status, xhr) {
+            //data = eval(data);
+            weui.toast('成绩与错题记录上传成功');
+            wrongs = [];
+        },
+        error: function () {
+            weui.alert('成绩与错题记录上传失败!');
+            wrongs = [];
+        }
+    });
     score = 0;
 }
 
@@ -31,6 +97,7 @@ function turnTabLabelActive(tabid) {
 
 function goToTestPage(id) {
     $('#loadingToast').show();
+    nowTitle = id;
     debuger("loading " + id);
     //$('#page4').text('');
     $.ajax({
@@ -77,6 +144,7 @@ function checkAnswerDx(qid) {
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
     } else {
+        wrongs.push(questionData[qid].id);
         for (i in $("#qtypedx input.weui-check")) {
             $("#qtypedx input.weui-check")[i].checked = false;
         }
@@ -86,7 +154,6 @@ function checkAnswerDx(qid) {
             weui.topTips('答错啦', 500);
         }
         setTimeout(function () {
-
                 generateQuestions(nowQuestion + 1);
             },
             1500);
@@ -99,7 +166,7 @@ function checkAnswerPd(qid) {
     j = 0;
     for (i in $("#qtypepd input.weui-check")) {
         if ($("#qtypepd input.weui-check")[i].checked) {
-            alist.push(j?0:1);
+            alist.push(j ? 0 : 1);
         }
         j = j + 1;
     }
@@ -117,10 +184,10 @@ function checkAnswerPd(qid) {
     }
     if (tmp) {
         score = score + 1;
-
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
     } else {
+        wrongs.push(questionData[qid].id);
         for (i in $("#qtypepd input.weui-check")) {
             $("#qtypepd input.weui-check")[i].checked = false;
         }
@@ -195,10 +262,33 @@ $(function () {
             for (i in data) {
                 res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' +
                     ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
-                    '</div> <div class="weui-cell__ft">135人答题</div></a>';
+                    '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">排行榜</div></a>';
                 $("#page1 div.weui-cells").append(res);
                 $('#loadingToast').hide();
             }
         }
     });
+    if (!localStorage.myNick) {
+        $("#inputNickDialog").show();
+        $("#btn_setnick")[0].onclick = function () {
+            if ($("#inputNickDialog > div >input")[0].value == '') {
+                weui.topTips('不可为空');
+                return 'blank input'
+            }
+            localStorage.setItem('myNick', $("#inputNickDialog > div >input")[0].value);
+            $("#inputNickDialog").hide();
+            $.ajax({
+                url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + localStorage.myNick + '',
+                success: function (data, status, xhr) {
+                    //data = eval(data);
+                    weui.toast('姓名设置成功');
+                },
+                error: function () {
+                    weui.alert('姓名设置失败!');
+                }
+            });
+        };
+
+
+    }
 });

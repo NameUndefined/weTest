@@ -8,9 +8,12 @@
 	<!-- 引入 WeUI -->
 	<link rel="stylesheet" href="css/weui.css" />
 	<link rel="stylesheet" href="css/animate.css" />
+	<style>
+		
+	</style>
 </head>
 
-<body ontouchstart="" style="height:100%">
+<body ontouchstart="" style="height:100%;">
 	<div class="weui-tab " style="height:100%">
 		<div class="weui-tab__panel">
 			<div class="weui-search-bar" id="searchBar">
@@ -24,23 +27,13 @@
 				</form>
 				<a href="javascript:" class="weui-search-bar__cancel-btn">取消</a>
 			</div>
-			<!--page1-->
+			<!--理论题库列表页面-->
 			<div id="page1" name="page" class="animated lightSpeedIn">
 				<div class="weui-panel__hd">
 					理论题库
 				</div>
-				<div class="weui-cells">
-					<!--<a class="weui-cell weui-cell_access" href="javascript:;"> 
-			<div class="weui-cell__bd"> 
-			<p>十九大应知应会100题</p> 
-			</div> <div class="weui-cell__ft">135人答题</div>
-			</a> 
-			<a class="weui-cell weui-cell_access" href="javascript:;">
-			<div class="weui-cell__bd"> 
-			<p>政治常识100题</p>
-			</div>
-			<div class="weui-cell__ft">146人答题</div> 
-			</a>-->
+				<div class="weui-cells ">
+
 				</div>
 				<div class="weui-footer">
 					<div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
@@ -49,6 +42,7 @@
 					<p class="weui-footer__text">Copyright &copy; 2018 王塬</p>
 				</div>
 			</div>
+			<!--理论学习列表页面-->
 			<div id="page2" name="page" style="display:none" class="animated lightSpeedIn">
 				<!-- 图文组合列表 -->
 				<div class="weui-panel weui-panel_access">
@@ -78,25 +72,48 @@
 					</div>
 				</div>
 			</div>
-			<!--User page-->
+			<!--用户页面-->
 			<div id="page3" name="page" style="display:none" class="animated lightSpeedIn">
+				<!-- <div >
+					<img src=''/>
+					<p>User Name</p>
+				</div> -->
 				<div class="weui-grids">
 					<a href="javascript:;" class="weui-grid">
 						<div class="weui-grid__icon">
-							<img src="./images/icon_nav_button.png" alt="" />
+							<img src="./img/icon_nav_cell.png" alt="" />
 						</div>
-						<p class="weui-grid__label"> Button </p>
+						<p class="weui-grid__label"> 今日打卡 </p>
 					</a>
 					<a href="javascript:;" class="weui-grid">
 						<div class="weui-grid__icon">
-							<img src="./images/icon_nav_cell.png" alt="" />
+							<img src="./img/icon_nav_cell.png" alt="" />
 						</div>
-						<p class="weui-grid__label"> Cell </p>
+						<p class="weui-grid__label"> 错题本 </p>
+					</a>
+					<a href="javascript:;" class="weui-grid">
+						<div class="weui-grid__icon">
+							<img src="./img/icon_nav_cell.png" alt="" />
+						</div>
+						<p class="weui-grid__label"> 学习记录 </p>
+					</a>
+					<a href="javascript:;" class="weui-grid">
+						<div class="weui-grid__icon">
+							<img src="./img/icon_nav_cell.png" alt="" />
+						</div>
+						<p class="weui-grid__label"> 小组 </p>
+					</a>
+					<a href="javascript:;" class="weui-grid">
+						<div class="weui-grid__icon">
+							<img src="./img/icon_nav_cell.png" alt="" />
+						</div>
+						<p class="weui-grid__label"> 设置 </p>
 					</a>
 				</div>
 			</div>
 			<div id="page6" name="page" style="display:none">
 			</div>
+			<!--答题结果清算页面-->
 			<div id="page5" name="page" style="display:none" class="weui-animate-slide-up">
 				<div class="weui-msg">
 					<div class="weui-msg__icon-area">
@@ -108,11 +125,11 @@
 					</div>
 					<div class="weui-msg__opr-area">
 						<p class="weui-btn-area"> <a href="javascript:generateQuestions(0);turnPageOn('#page4')" class="weui-btn weui-btn_primary">再来一次？</a> <a href="javascript:turnPageOn('#page1')"
-							  class="weui-btn weui-btn_default">回到主页</a> </p>
+							    class="weui-btn weui-btn_default">回到主页</a> </p>
 					</div>
 				</div>
 			</div>
-			<!--Test page-->
+			<!--答题页面-->
 			<div id="page4" style="display:none;" class="weui-animate-fade-in" name="page">
 				<div class="weui-progress">
 					<div class="weui-progress__bar">
@@ -155,10 +172,7 @@
 					<div class="weui-cells weui-cells_checkbox">
 					</div>
 					<!--Control Panel-->
-					<div class="button-sp-area">
-						<p></p>
-						<a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
-					</div>
+					<a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn  weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
 				</div>
 			</div>
 		</div>
@@ -168,11 +182,22 @@
 			<a id="bar3" name="tabbar_label" href="javascript:turnTabLabelActive('#bar3');turnPageOn('#page3');" class="weui-tabbar__item"> <img src="./img/icon_nav_actionSheet.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">关于</p> </a>
 		</div>
 	</div>
+	<!--Tools-->
 	<div id="loadingToast" style="display:none;">
 		<div class="weui-mask_transparent"></div>
 		<div class="weui-toast">
 			<i class="weui-loading weui-icon_toast"></i>
 			<p class="weui-toast__content">数据加载中</p>
+		</div>
+	</div>
+	<div id="inputNickDialog" style="display: none;">
+		<div class="weui-mask"></div>
+		<div class="weui-dialog">
+			<div class="weui-dialog__hd"><strong class="weui-dialog__title">请设置你的姓名</strong></div>
+			<input class="weui-input" type="text" placeholder="请输入姓名"/>
+			<div class="weui-dialog__ft">
+				<a id = 'btn_setnick' href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+			</div>
 		</div>
 	</div>
 	<script src="js/jquery-1.9.1.js"></script>

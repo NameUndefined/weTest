@@ -44,5 +44,39 @@ class Title(db.Model):
     def __repr__(self):
         return '<Title %r>' % self.title
 
-    
+class User(db.Model):
+    __tablename__='users'
+    id=db.Column(db.Integer,primary_key=True)
+    userNick = db.Column(db.Text,unique=True)
+    userIMEI = db.Column(db.Text,unique=True)
+    userPw = db.Column(db.Text)
+    def to_json(self):
+        json_user={
+                'id':self.id,
+                'nick':self.userNick,
+                'imei':self.userIMEI
+                }
+        return json_user
+    def __repr__(self):
+        return '<User %r>' % self.userIMEI
+
+class Record(db.Model):
+    __tablename__='records'
+    id=db.Column(db.Integer,primary_key=True)
+    userScore = db.Column(db.Integer)
+    userIMEI = db.Column(db.Text) #unique
+    titleID = db.Column(db.Integer)
+    wrongQuestions = db.Column(db.Text)
+    def to_json(self):
+        json_user={
+                'id':self.id,
+                'score':self.userScore,
+                'imei':self.userIMEI,
+                'titleID':self.titleID,
+                'wrong':self.wrongQuestions
+                }
+        return json_user
+    def __repr__(self):
+        return '<Record score %r>' % self.userScore
+
 
