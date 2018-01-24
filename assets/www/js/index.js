@@ -27,7 +27,7 @@ trans = {
 };
 myIMEI = '123';
 SERVER_IP = 'http://township.ink:8001';
-SERVER_IP = 'http://localhost:5000';
+//SERVER_IP = 'http://localhost:5000';
 
 function debuger(x) {
     if (debug)
