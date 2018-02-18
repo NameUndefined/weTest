@@ -35,6 +35,7 @@ function debuger(x) {
 }
 
 function showRecords(id) {
+    event.preventDefault();
     $.ajax({
         //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
         url: SERVER_IP + '/getrecord/' + id,
@@ -44,20 +45,10 @@ function showRecords(id) {
             for (i in data) {
                 s = data[i].score;
                 n = data[i].imei;
-                tmp = 'ID:' + n + ' SCORE:' + s + '<br/>';
-                tmp2 = tmp2 + tmp
+                m = data[i].nick
+                $('#recordstable').append('<tr><td>'+m+'</td><td>'+s+'</td></tr>')
             }
-            var dialog = weui.dialog({
-                title: '排行榜',
-                content: tmp2,
-                buttons: [ {
-                    label: '确定',
-                    type: 'primary',
-                    onClick: function () {
-                        dialog.hide()
-                    }
-                }]
-            });
+            $('#showrecords').show();
         },
         error: function () {
             weui.alert('成绩与错题记录上传失败!');
@@ -246,8 +237,10 @@ $(function () {
     //2000);
     //var vConsole = new VConsole();
     setTimeout(function(){
-        myIMEI=device.uuid
-        if (!myIMEI){
+        try{
+            myIMEI=device.uuid
+        }
+        catch(e){
             myIMEI = 'GUESTUUID'
             weui.alert('无法读取您的登录信息，当前为访客模式')
             SERVER_IP = 'http://localhost:5000';

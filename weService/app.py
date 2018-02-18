@@ -25,7 +25,13 @@ def pushrecord(titleid,userIMEI,userScore,wrong):
 @app.route('/getrecord/<titleid>')
 def getrecord(titleid):
     r = Record().query.filter_by(titleID=titleid).order_by(db.desc('userScore')).limit(5).all()
-    resp= make_response(json.dumps([records.to_json() for records in r]))
+    recordALL = [records.to_json() for records in r]
+    for i in recordALL:
+        imei = i['imei']
+        user = User().query.filter_by(userIMEI=imei).all()[0]
+        nick = user.userNick
+        i['nick'] = nick
+    resp= make_response(json.dumps(recordALL))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
 
