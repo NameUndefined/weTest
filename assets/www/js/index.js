@@ -5,6 +5,7 @@ nowQuestion = 0;
 nowTitle = null;
 score = 0;
 wrongs = [];
+isContestMode = false;
 trans = {
     0: 'a',
     1: 'b',
@@ -27,7 +28,7 @@ trans = {
 };
 myIMEI = '123';
 SERVER_IP = 'http://township.ink:8001';
-//SERVER_IP = 'http://localhost:5000';
+SERVER_IP = 'http://localhost:5000';
 
 function debuger(x) {
     if (debug)
@@ -83,7 +84,9 @@ function calcScore() {
     });
     score = 0;
 }
+function startContest(){
 
+}
 function turnPageOn(page) {
     $("div[name='page']").hide();
     $(page).show();
@@ -198,7 +201,6 @@ function checkAnswerPd(qid) {
             weui.topTips('答错啦', 500);
         }
         setTimeout(function () {
-
                 generateQuestions(nowQuestion + 1);
             },
             1500);
@@ -244,6 +246,13 @@ $(function () {
     //},
     //2000);
     //var vConsole = new VConsole();
+    setTimeout(function(){
+        myIMEI=device.uuid
+        if (!myIMEI){
+            myIMEI = 'GUESTUUID'
+            weui.alert('无法读取您的登录信息，当前为访客模式')
+        }
+    },2000)
     $.fn.extend({
         animateCss: function (animationName, callback) {
             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -272,6 +281,19 @@ $(function () {
             }
         }
     });
+    /* $.ajax({
+        url: SERVER_IP + '/contests/',
+        success: function (data, status, xhr) {
+            data = eval(data);
+            for (i in data) {
+                res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');startContest();">' +
+                    ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
+                    '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">排行榜</div></a>';
+                $("#page7 div.weui-cells").append(res);
+                $('#loadingToast').hide();
+            }
+        }
+    }); */
     $.ajax({
         url: SERVER_IP + '/articles/',
         success: function (data, status, xhr) {
@@ -298,16 +320,18 @@ $(function () {
                 weui.topTips('不可为空');
                 return 'blank input'
             }
-            localStorage.setItem('myNick', $("#inputNickDialog > div >input")[0].value);
+            
             $("#inputNickDialog").hide();
             $.ajax({
-                url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + localStorage.myNick + '',
+                url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '',
                 success: function (data, status, xhr) {
                     //data = eval(data);
                     weui.toast('姓名设置成功');
+                    localStorage.setItem('myNick', $("#inputNickDialog > div >input")[0].value);
                 },
                 error: function () {
                     weui.alert('姓名设置失败!');
+                    $("#inputNickDialog").show();
                 }
             });
         };

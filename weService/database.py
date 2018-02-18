@@ -93,5 +93,19 @@ class Record(db.Model):
         return json_user
     def __repr__(self):
         return '<Record score %r>' % self.userScore
+class Contest(db.Model):
+    __tablename__='contests'
+    id=db.Column(db.Integer,primary_key=True)
+    titleid = db.Column(db.Integer)
+    timelimit = db.Column(db.Integer) #unique
+    def to_json(self):
+        json_user={
+                'id':self.id,
+                'titleID':self.titleid,
+                'timelimit':self.timelimit
+                }
+        return json_user
+    def __repr__(self):
+        return '<Contest %r>' % self.timelimit
 
 

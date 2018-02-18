@@ -56,7 +56,7 @@
 
 					</div>
 					<!-- foot 部分 -->
-<!-- 					<div class="weui-panel__ft">
+					<!-- 					<div class="weui-panel__ft">
 						<a href="#" class="weui-cell weui-cell_access weui-cell_link">
 							<div class="weui-cell__bd">
 								查看更多
@@ -101,7 +101,7 @@
 						</div>
 						<p class="weui-grid__label"> 设置 </p>
 					</a>
-										<a href="javascript:localStorage.clear();weui.alert('清除成功')" class="weui-grid">
+					<a href="javascript:localStorage.clear();weui.alert('清除成功')" class="weui-grid">
 						<div class="weui-grid__icon">
 							<img src="./img/icon_nav_cell.png" alt="" />
 						</div>
@@ -111,7 +111,7 @@
 			</div>
 			<!--文章页面-->
 			<div id="page6" name="page" style="display:none">
-				<iframe  style="width:100%;border:0;" src=''>
+				<iframe style="width:100%;border:0;" src=''>
 
 				</iframe>
 			</div>
@@ -177,9 +177,34 @@
 					<a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn  weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
 				</div>
 			</div>
+			<!--考核竞赛列表页面-->
+			<!--<div id="page7" style="display:none;" class="weui-animate-fade-in" name="page">
+				<div class="weui-panel__hd">
+					可进行的考核
+				</div>
+				<div class="weui-cells ">
+
+				</div>
+				<div class="weui-footer">
+					<div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+						<span class="weui-loadmore__tips"></span>
+					</div>
+					<p class="weui-footer__text">Copyright &copy; 2018 王塬 测试版本244</p>
+				</div>
+			</div>-->
+			<!--考核竞赛答题页面-->
+			<div id="page8" style="display:none;" class="weui-animate-fade-in" name="page">
+			</div>
+			<!--考核竞赛结算页面-->
+			<div id="page9" style="display:none;" class="weui-animate-fade-in" name="page">
+			</div>
+			<!--考核竞赛管理员页面-->
+			<div id="page10" style="display:none;" class="weui-animate-fade-in" name="page">
+			</div>
 		</div>
 		<div class="weui-tabbar">
 			<a id="bar1" name="tabbar_label" href="javascript:turnTabLabelActive('#bar1');turnPageOn('#page1');" class="weui-tabbar__item weui-bar__item_on"> <img src="./img/icon_nav_cell.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">微答题</p> </a>
+			<!--<a id="bar4" name="tabbar_label" href="javascript:turnTabLabelActive('#bar4');turnPageOn('#page7');" class="weui-tabbar__item "> <img src="./img/icon_nav_cell.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">微考核</p> </a>-->
 			<a id="bar2" name="tabbar_label" href="javascript:turnTabLabelActive('#bar2');turnPageOn('#page2');" class="weui-tabbar__item"> <img src="./img/icon_nav_panel.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">微理论</p> </a>
 			<a id="bar3" name="tabbar_label" href="javascript:turnTabLabelActive('#bar3');turnPageOn('#page3');" class="weui-tabbar__item"> <img src="./img/icon_nav_actionSheet.png" alt="" class="weui-tabbar__icon" /> <p class="weui-tabbar__label">关于</p> </a>
 		</div>
@@ -202,6 +227,7 @@
 			</div>
 		</div>
 	</div>
+	<script src='js/cordova.js'></script>
 	<script src="js/jquery-1.9.1.js"></script>
 	<script src="js/vconsole.min.js"></script>
 	<script src="js/weui.js"></script>

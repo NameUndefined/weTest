@@ -15,7 +15,7 @@ def index():
 
 @app.route('/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>')
 def pushrecord(titleid,userIMEI,userScore,wrong):
-    record = Record(titleID=titleid,userIMEI=userIMEI,userScore=userScore,wrongQuestions=wrong)
+    record = Record(titleID=titleid,userIMEI=userIMEI,userScore=int(userScore),wrongQuestions=wrong)
     db.session.add(record)
     db.session.commit()
     resp= make_response('["status":"200"]')
@@ -24,7 +24,7 @@ def pushrecord(titleid,userIMEI,userScore,wrong):
 
 @app.route('/getrecord/<titleid>')
 def getrecord(titleid):
-    r = Record().query.filter_by(titleID=titleid).order_by('userScore').limit(5).all()
+    r = Record().query.filter_by(titleID=titleid).order_by(db.desc('userScore')).limit(5).all()
     resp= make_response(json.dumps([records.to_json() for records in r]))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
@@ -45,6 +45,30 @@ def titles():
     resp= make_response(json.dumps([title.to_json() for title in t]))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
+
+@app.route('/contests/')
+def contests():
+    t = Contest.query.all()
+    c = []
+    for i in t:
+        c.append(Title.query.filter_by(id=i.titleid).all()[0])
+    resp= make_response(json.dumps([contest.to_json() for contest in c]))
+    resp.headers['Access-Control-Allow-Origin']='*'
+    return resp
+
+@app.route('/contests/create/<titleid>/<timelimit>/')
+def create_contests(titleid,timelimit):
+    if len( Title.query.filter_by(id=titleid).all() )<1:
+        resp= make_response('["status":"404"]')
+        resp.headers['Access-Control-Allow-Origin']='*'
+        return resp
+    t = Contest(titleid=titleid,timelimit=timelimit)
+    db.session.add(t)
+    db.session.commit()
+    resp= make_response('["status":"200"]')
+    resp.headers['Access-Control-Allow-Origin']='*'
+    return resp
+
 @app.route('/articles/')
 def articles():
     t = Article.query.all()
