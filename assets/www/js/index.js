@@ -24,11 +24,10 @@ trans = {
     'f': 5,
     'g': 6,
     'h': 7,
-    'i': 8
-};
-myIMEI = '123';
+    'i': 8};
+
 SERVER_IP = 'http://township.ink:8001';
-SERVER_IP = 'http://localhost:5000';
+
 
 function debuger(x) {
     if (debug)
@@ -251,8 +250,12 @@ $(function () {
         if (!myIMEI){
             myIMEI = 'GUESTUUID'
             weui.alert('无法读取您的登录信息，当前为访客模式')
+            SERVER_IP = 'http://localhost:5000';
         }
     },2000)
+    var vConsole = new VConsole();
+	setTimeout(function(){myIMEI = device.uuid;},1500);
+	
     $.fn.extend({
         animateCss: function (animationName, callback) {
             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';

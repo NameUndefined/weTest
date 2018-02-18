@@ -29,7 +29,9 @@ public class cordovaExample extends DroidGap
     {
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl());
+		super.setIntegerProperty("splashscreen",R.drawable.splash2);
+		super.loadUrl("file:///android_asset/www/index.html", 5000);
+        //super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html")
     }
 }
