@@ -15,7 +15,7 @@ def index():
 
 @app.route('/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>')
 def pushrecord(titleid,userIMEI,userScore,wrong):
-    record = Record(titleID=titleid,userIMEI=userIMEI,userScore=int(userScore),wrongQuestions=wrong)
+    record = Record(titleID=titleid,userIMEI=userIMEI,userScore=float(userScore),wrongQuestions=wrong)
     db.session.add(record)
     db.session.commit()
     resp= make_response('["status":"200"]')
@@ -24,7 +24,7 @@ def pushrecord(titleid,userIMEI,userScore,wrong):
 
 @app.route('/getrecord/<titleid>')
 def getrecord(titleid):
-    r = Record().query.filter_by(titleID=titleid).order_by(db.desc('userScore')).limit(5).all()
+    r = Record().query.filter_by(titleID=titleid).order_by(db.desc('userScore')).all()
     recordALL = [records.to_json() for records in r]
     for i in recordALL:
         imei = i['imei']
@@ -37,8 +37,11 @@ def getrecord(titleid):
 
 @app.route('/user/<imei>/setnick/<nick>')
 def setnick(imei,nick):
-    user = User().query.filter_by(userIMEI=imei).all()[0]
-    user.userNick = nick
+    try:
+        user = User().query.filter_by(userIMEI=imei).all()[0]
+        user.userNick = nick
+    except:
+        user = User(userIMEI=imei,userNick=nick)
     db.session.add(user)
     db.session.commit()
     resp= make_response('["status":"200"]')

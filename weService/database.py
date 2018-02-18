@@ -78,7 +78,7 @@ class User(db.Model):
 class Record(db.Model):
     __tablename__='records'
     id=db.Column(db.Integer,primary_key=True)
-    userScore = db.Column(db.Integer)
+    userScore = db.Column(db.Float)
     userIMEI = db.Column(db.Text) #unique
     titleID = db.Column(db.Integer)
     wrongQuestions = db.Column(db.Text)
