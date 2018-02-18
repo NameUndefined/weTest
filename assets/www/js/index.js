@@ -41,6 +41,8 @@ function showRecords(id) {
         url: SERVER_IP + '/getrecord/' + id,
         success: function (data, status, xhr) {
             data = eval(data);
+            $('#recordstable').empty();
+            $('#recordstable').append('<tr><th>姓名</th><th>分数</th></tr>');
             var tmp2 = ''
             for (i in data) {
                 s = data[i].score;
