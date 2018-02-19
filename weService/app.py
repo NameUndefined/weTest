@@ -37,7 +37,7 @@ def getrecord(titleid):
 
 @app.route('/user/<imei>/setnick/<nick>')
 def setnick(imei,nick):
-    nick = urllib.unquote(nick)
+    #nick = urllib.unquote(nick)
     try:
         user = User().query.filter_by(userIMEI=imei).all()[0]
         user.userNick = nick
