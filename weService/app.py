@@ -3,7 +3,7 @@
 from flask import Flask,json,Response,make_response
 from flask_sqlalchemy import SQLAlchemy
 from database import *
-import os
+import os,urllib
 #app=Flask(__name__)
 
 
@@ -37,7 +37,7 @@ def getrecord(titleid):
 
 @app.route('/user/<imei>/setnick/<nick>')
 def setnick(imei,nick):
-    nick = nick
+    nick = urllib.unquote(nick)
     try:
         user = User().query.filter_by(userIMEI=imei).all()[0]
         user.userNick = nick
