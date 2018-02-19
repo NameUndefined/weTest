@@ -321,7 +321,7 @@ $(function () {
             
             $("#inputNickDialog").hide();
             $.ajax({
-                url: encodeURI(encodeURI( SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '')),
+                url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '',
                 success: function (data, status, xhr) {
                     //data = eval(data);
                     weui.toast('姓名设置成功');
