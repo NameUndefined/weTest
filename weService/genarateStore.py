@@ -30,9 +30,10 @@ while True :
         db.session.add(q)
     if tmp[:5] == '[QPD]':
         QTEXT = tmp[5:]
+        print QTEXT.encode('utf-8')
         tmp =f.readline().decode('utf-8')
         if tmp[:3]=='[A]':
-            QANSWER =[ int(tmp[4:len(tmp)-1]) ]
+            QANSWER =[ int(tmp[4:len(tmp)-2]) ]
         q = Question(qtype='pd',title_id=title_id,questiontext=QTEXT,answer=json.dumps(QANSWER),chooses=json.dumps(QCHOOSES))
         db.session.add(q)
 

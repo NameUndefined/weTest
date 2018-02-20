@@ -48,13 +48,13 @@ function showRecords(id) {
             for (i in data) {
                 s = data[i].score;
                 n = data[i].imei;
-                m = data[i].nick
+                m = decodeURI(data[i].nick)
                 $('#recordstable').append('<tr><td>' + m + '</td><td>' + s + '</td></tr>')
             }
             $('#showrecords').show();
         },
         error: function () {
-            weui.alert('成绩与错题记录上传失败!');
+            weui.alert('获取记录失败');
             wrongs = [];
         }
     });
@@ -157,7 +157,7 @@ function checkAnswerDx(qid) {
         }
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
-                $('#okbtnXZ').show()
+                $('#okbtnXZ').show();
             },
             1000);
     }
@@ -191,20 +191,25 @@ function checkAnswerPd(qid) {
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
         $('#okbtnPD').show()
-    } else {
-        wrongs.push(questionData[qid].id);
         for (i in $("#qtypepd input.weui-check")) {
             $("#qtypepd input.weui-check")[i].checked = false;
         }
+    } else {
+        wrongs.push(questionData[qid].id);
         for (i in rightA) {
-            $("#qtypepd input.weui-check")[rightA[i]].checked = true;
+            $("#qtypepd input.weui-check")[rightA[i]?0:1].checked = true;
+            $("#qtypepd label :eq(" + rightA[i] ? 0 : 1 + ")").removeClass('weui-animate-slide-up');
+            $("#qtypepd label :eq(" + rightA[i] ? 0 : 1 + ")").animateCss('bounceIn');
             weui.topTips('答错啦', 500);
         }
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
+                for (i in $("#qtypepd input.weui-check")) {
+                    $("#qtypepd input.weui-check")[i].checked = false;
+                }
                 $('#okbtnPD').show()
             },
-            1500);
+            500);
     }
 }
 
@@ -241,21 +246,22 @@ function generateQuestions(qid) {
     }
 
 }
-function genTitles(){
-        $("#page1 div.weui-cells").text('')
-        $.ajax({
-            url: SERVER_IP + '/titles/',
-            success: function (data, status, xhr) {
-                data = eval(data);
-                for (i in data) {
-                    res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' +
-                        ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
-                        '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">'+data[i].times+'人次</div></a>';
-                    $("#page1 div.weui-cells").append(res);
-                    $('#loadingToast').hide();
-                }
+
+function genTitles() {
+    $("#page1 div.weui-cells").text('')
+    $.ajax({
+        url: SERVER_IP + '/titles/',
+        success: function (data, status, xhr) {
+            data = eval(data);
+            for (i in data) {
+                res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' +
+                    ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
+                    '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">' + data[i].times + '人次</div></a>';
+                $("#page1 div.weui-cells").append(res);
+                $('#loadingToast').hide();
             }
-        });
+        }
+    });
 }
 $(function () {
     var vConsole = new VConsole();
@@ -295,8 +301,10 @@ $(function () {
             }
 
             $("#inputNickDialog").hide();
+            url = SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '';
+            url = encodeURI(encodeURI(url))
             $.ajax({
-                url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '',
+                url: url,
                 success: function (data, status, xhr) {
                     //data = eval(data);
                     weui.toast('姓名设置成功');
