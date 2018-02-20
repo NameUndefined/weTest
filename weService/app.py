@@ -52,7 +52,12 @@ def setnick(imei,nick):
 @app.route('/titles/')
 def titles():
     t = Title.query.all()
-    resp= make_response(json.dumps([title.to_json() for title in t]))
+    res = [title.to_json() for title in t]
+    for i in res:
+        id=i['id']
+        times = len(Record().query.filter_by(titleID=id).all())
+        i['times'] = times
+    resp= make_response(json.dumps(res))
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
 

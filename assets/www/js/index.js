@@ -24,7 +24,8 @@ trans = {
     'f': 5,
     'g': 6,
     'h': 7,
-    'i': 8};
+    'i': 8
+};
 
 SERVER_IP = 'http://township.ink:8001';
 
@@ -48,7 +49,7 @@ function showRecords(id) {
                 s = data[i].score;
                 n = data[i].imei;
                 m = data[i].nick
-                $('#recordstable').append('<tr><td>'+m+'</td><td>'+s+'</td></tr>')
+                $('#recordstable').append('<tr><td>' + m + '</td><td>' + s + '</td></tr>')
             }
             $('#showrecords').show();
         },
@@ -60,10 +61,10 @@ function showRecords(id) {
 }
 
 function calcScore() {
-    $("#scorePanel").text('你得到了 ' + score/nowQuestion*100 + ' 分 '); //+ nowQuestion + ' questions!');
+    $("#scorePanel").text('你得到了 ' + score / nowQuestion * 100 + ' 分 '); //+ nowQuestion + ' questions!');
     $.ajax({
         //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
-        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score/nowQuestion*100 + '/[' + wrongs + ']',
+        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score / nowQuestion * 100 + '/[' + wrongs + ']',
         success: function (data, status, xhr) {
             //data = eval(data);
             weui.toast('成绩与错题记录上传成功');
@@ -76,9 +77,11 @@ function calcScore() {
     });
     score = 0;
 }
-function startContest(){
+
+function startContest() {
 
 }
+
 function turnPageOn(page) {
     $("div[name='page']").hide();
     $(page).show();
@@ -113,6 +116,7 @@ function goToTestPage(id) {
 }
 
 function checkAnswerDx(qid) {
+    $('#okbtnXZ').hide()
     alist = [];
     tmp = true;
     j = 0
@@ -139,6 +143,7 @@ function checkAnswerDx(qid) {
         score = score + 1;
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
+        $('#okbtnXZ').show()
     } else {
         wrongs.push(questionData[qid].id);
         for (i in $("#qtypedx input.weui-check")) {
@@ -146,18 +151,20 @@ function checkAnswerDx(qid) {
         }
         for (i in rightA) {
             $("#qtypedx input.weui-check")[trans[rightA[i]]].checked = true;
-            $("#qtypedx label :eq("+trans[rightA[i]]+")").removeClass('weui-animate-slide-up');
-            $("#qtypedx label :eq("+trans[rightA[i]]+")").animateCss('bounceIn');
+            $("#qtypedx label :eq(" + trans[rightA[i]] + ")").removeClass('weui-animate-slide-up');
+            $("#qtypedx label :eq(" + trans[rightA[i]] + ")").animateCss('bounceIn');
             weui.topTips('答错啦', 500);
         }
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
+                $('#okbtnXZ').show()
             },
             1000);
     }
 }
 
 function checkAnswerPd(qid) {
+    $('#okbtnPD').hide()
     alist = [];
     tmp = true;
     j = 0;
@@ -183,6 +190,7 @@ function checkAnswerPd(qid) {
         score = score + 1;
         debuger('add score,now : ' + score);
         generateQuestions(nowQuestion + 1);
+        $('#okbtnPD').show()
     } else {
         wrongs.push(questionData[qid].id);
         for (i in $("#qtypepd input.weui-check")) {
@@ -194,6 +202,7 @@ function checkAnswerPd(qid) {
         }
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
+                $('#okbtnPD').show()
             },
             1500);
     }
@@ -232,93 +241,59 @@ function generateQuestions(qid) {
     }
 
 }
+function genTitles(){
+        $("#page1 div.weui-cells").text('')
+        $.ajax({
+            url: SERVER_IP + '/titles/',
+            success: function (data, status, xhr) {
+                data = eval(data);
+                for (i in data) {
+                    res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' +
+                        ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
+                        '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">'+data[i].times+'人次</div></a>';
+                    $("#page1 div.weui-cells").append(res);
+                    $('#loadingToast').hide();
+                }
+            }
+        });
+}
 $(function () {
-    //setTimeout(function() {
-    //    $('#flashscreen').hide();
-    //},
-    //2000);
-    //var vConsole = new VConsole();
-    setTimeout(function(){
-        try{
-            myIMEI=device.uuid
-        }
-        catch(e){
+    var vConsole = new VConsole();
+    setTimeout(function () {
+        $('#__vconsole > div.vc-switch').text('调试器');
+        $('#__vconsole').hide()
+        myIMEI = device.uuid;
+        if (myIMEI == null) {
             myIMEI = 'GUESTUUID'
-            weui.alert('无法读取您的登录信息，当前为访客模式')
+            weui.topTips('无法读取您的登录信息，当前为访客模式')
             SERVER_IP = 'http://localhost:5000';
         }
-    },2000)
-    var vConsole = new VConsole();
-	setTimeout(function(){myIMEI = device.uuid;},1500);
-	
-    $.fn.extend({
-        animateCss: function (animationName, callback) {
-            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            this.addClass('animated ' + animationName).one(animationEnd, function () {
-                $(this).removeClass('animated ' + animationName);
-                if (callback) {
-                    callback();
+        genTitles()
+        $.ajax({
+            url: SERVER_IP + '/articles/',
+            success: function (data, status, xhr) {
+                data = eval(data);
+                for (i in data) {
+                    res = '<a href="javascript:$(\'#loadingToast\').show();$(\'#page6 iframe\')[0].src=\'' + data[i].url + '\';turnPageOn(\'#page6\');" class="weui-media-box weui-media-box_appmsg">' +
+                        '<div class="weui-media-box__hd">' +
+                        '<img src="img/icon_nav_search_bar.png" alt="" class="weui-media-box__thumb" />' +
+                        '</div>' +
+                        '<div class="weui-media-box__bd">' +
+                        '<h4 class="weui-media-box__title">' + data[i].title + '</h4>' +
+                        '<p class="weui-media-box__desc">' + data[i].intro + '</p>' +
+                        '</div>' +
+                        '</a>'
+                    $("#page2 div.weui-panel__bd").append(res);
+
                 }
-            });
-            return this;
-        }
-    });
-    $('#loadingToast').show();
-    $('#page6 iframe').height(window.innerHeight)
-    $('#page6 iframe')[0].onload = function(){debuger('loaded');$('#loadingToast').hide();}
-    $.ajax({
-        url: SERVER_IP + '/titles/',
-        success: function (data, status, xhr) {
-            data = eval(data);
-            for (i in data) {
-                res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');">' +
-                    ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
-                    '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">排行榜</div></a>';
-                $("#page1 div.weui-cells").append(res);
-                $('#loadingToast').hide();
             }
-        }
-    });
-    /* $.ajax({
-        url: SERVER_IP + '/contests/',
-        success: function (data, status, xhr) {
-            data = eval(data);
-            for (i in data) {
-                res = '<a class="weui-cell weui-cell_access" href="javascript:goToTestPage(' + data[i].id + ');startContest();">' +
-                    ' <div class="weui-cell__bd"><p>' + data[i].title + '</p> ' +
-                    '</div><div class="weui-cell__ft" onclick="showRecords(' + data[i].id + ')">排行榜</div></a>';
-                $("#page7 div.weui-cells").append(res);
-                $('#loadingToast').hide();
-            }
-        }
-    }); */
-    $.ajax({
-        url: SERVER_IP + '/articles/',
-        success: function (data, status, xhr) {
-            data = eval(data);
-            for (i in data) {
-                res ='<a href="javascript:$(\'#loadingToast\').show();$(\'#page6 iframe\')[0].src=\''+data[i].url+'\';turnPageOn(\'#page6\');" class="weui-media-box weui-media-box_appmsg">'
-					+		'<div class="weui-media-box__hd">'
-					+			'<img src="img/icon_nav_search_bar.png" alt="" class="weui-media-box__thumb" />'
-					+		'</div>'
-					+		'<div class="weui-media-box__bd">'
-					+			'<h4 class="weui-media-box__title">'+data[i].title+'</h4>'
-					+			'<p class="weui-media-box__desc">'+data[i].intro+'</p>'
-					+		'</div>'
-					+	'</a>'
-                $("#page2 div.weui-panel__bd").append(res);
-                
-            }
-        }
-    });
-    if (!localStorage.myNick) {
-        $("#inputNickDialog").show();
+        });
         $("#btn_setnick")[0].onclick = function () {
             if ($("#inputNickDialog > div >input")[0].value == '') {
                 weui.topTips('不可为空');
                 return 'blank input'
             }
-            
+
             $("#inputNickDialog").hide();
             $.ajax({
                 url: SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '',
@@ -333,7 +308,31 @@ $(function () {
                 }
             });
         };
-    }else{
-        weui.toast("欢迎回来 "+localStorage.myNick);
+        if (!localStorage.myNick) {
+            $("#inputNickDialog").show();
+
+        } else {
+            weui.toast("欢迎回来 " + localStorage.myNick);
+        }
+    }, 2000)
+
+    $.fn.extend({
+        animateCss: function (animationName, callback) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            this.addClass('animated ' + animationName).one(animationEnd, function () {
+                $(this).removeClass('animated ' + animationName);
+                if (callback) {
+                    callback();
+                }
+            });
+            return this;
+        }
+    });
+    $('#loadingToast').show();
+    $('#page6 iframe').height(window.innerHeight)
+    $('#page6 iframe')[0].onload = function () {
+        debuger('loaded');
+        $('#loadingToast').hide();
     }
+
 });

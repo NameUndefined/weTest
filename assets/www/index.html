@@ -38,6 +38,7 @@
 					<div class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
 						<span class="weui-loadmore__tips"></span>
 					</div>
+					<div class="weui-loadmore" ><a href='javascript:genTitles()'>刷新</a></div>
 					<p class="weui-footer__text">Copyright &copy; 2018 王塬 测试版本243</p>
 				</div>
 			</div>
@@ -88,17 +89,17 @@
 						</div>
 						<p class="weui-grid__label"> 学习记录 </p>
 					</a>
-					<a href="javascript:;" class="weui-grid">
+					<a href="javascript:$('#__vconsole').toggle();" class="weui-grid">
 						<div class="weui-grid__icon">
 							<img src="./img/icon_nav_cell.png" alt="" />
 						</div>
-						<p class="weui-grid__label"> 小组 </p>
+						<p class="weui-grid__label"> 调试器 </p>
 					</a>
-					<a href="javascript:;" class="weui-grid">
+					<a href="javascript:$('#inputNickDialog').show();" class="weui-grid">
 						<div class="weui-grid__icon">
 							<img src="./img/icon_nav_cell.png" alt="" />
 						</div>
-						<p class="weui-grid__label"> 设置 </p>
+						<p class="weui-grid__label"> 设置昵称 </p>
 					</a>
 					<a href="javascript:localStorage.clear();weui.alert('清除成功')" class="weui-grid">
 						<div class="weui-grid__icon">
@@ -163,7 +164,7 @@
 					</div>
 					<div class="button-sp-area">
 						<p></p>
-						<a href="javascript:checkAnswerPd(nowQuestion);" class="weui-btn weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
+						<a  id='okbtnPD' href="javascript:checkAnswerPd(nowQuestion);" class="weui-btn weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
 					</div>
 				</div>
 				<div id="qtypedx" name="qtype" class="weui-animate-fade-in">
@@ -173,7 +174,7 @@
 					<div class="weui-cells weui-cells_checkbox">
 					</div>
 					<!--Control Panel-->
-					<a href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn  weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
+					<a id='okbtnXZ'href="javascript:checkAnswerDx(nowQuestion);" class="weui-btn  weui-btn_primary">确定<i name="wrongAnswer" class="weui-icon-warn" style="display:none;"></i></a>
 				</div>
 			</div>
 			<!--考核竞赛列表页面-->
@@ -222,7 +223,7 @@
 			<div class="weui-dialog__hd"><strong class="weui-dialog__title">请设置你的姓名</strong></div>
 			<input class="weui-input" type="text" placeholder="请输入姓名" />
 			<div class="weui-dialog__ft">
-				<a id='btn_setnick' href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+				<a id='btn_setnick'  class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
 			</div>
 		</div>
 	</div>
