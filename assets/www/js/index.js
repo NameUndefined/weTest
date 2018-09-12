@@ -1,4 +1,4 @@
-weui.searchBar('#searchBar');
+﻿weui.searchBar('#searchBar');
 debug = false;
 questionData = null;
 nowQuestion = 0;
@@ -28,7 +28,52 @@ trans = {
 };
 
 SERVER_IP = 'http://township.ink:8001';
+//SERVER_IP = 'http://localhost:5000';
+var I64BIT_TABLE =
+ 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'.split('');
 
+function hash(input){
+ var hash = 5381;
+ var i = input.length - 1;
+
+ if(typeof input == 'string'){
+  for (; i > -1; i--)
+   hash += (hash << 5) + input.charCodeAt(i);
+ }
+ else{
+  for (; i > -1; i--)
+   hash += (hash << 5) + input[i];
+ }
+ var value = hash & 0x7FFFFFFF;
+
+ var retValue = '';
+ do{
+  retValue += I64BIT_TABLE[value & 0x3F];
+ }
+ while(value >>= 6);
+
+ return retValue;
+}
+function shoujidati(){
+	if(title=prompt('请输入试卷名')){
+		if(astr=prompt('请输入扫描二维码得到的字符串')){
+			$.ajax({
+				url: SERVER_IP + '/titles/create',
+				type:"POST",
+				data:{
+					title:title,
+					astr : astr
+				},
+				success:function(data){
+					alert('录入成功')
+				},
+				error:function(){
+					alert('录入失败')
+				}
+			})
+		}
+	}
+}
 
 function debuger(x) {
     if (debug)
@@ -61,10 +106,10 @@ function showRecords(id) {
 }
 
 function calcScore() {
-    $("#scorePanel").text('你得到了 ' + score / nowQuestion * 100 + ' 分 '); //+ nowQuestion + ' questions!');
+    $("#scorePanel").text('你得到了 ' + score  + ' 分 '); //+ nowQuestion + ' questions!');
     $.ajax({
         //'/pushrecord/<titleid>/<userIMEI>/<userScore>/<wrong>'
-        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score / nowQuestion * 100 + '/[' + wrongs + ']',
+        url: SERVER_IP + '/pushrecord/' + nowTitle + '/' + myIMEI + '/' + score  + '/[' + wrongs + ']',
         success: function (data, status, xhr) {
             //data = eval(data);
             weui.toast('成绩与错题记录上传成功');
@@ -149,12 +194,12 @@ function checkAnswerDx(qid) {
         for (i in $("#qtypedx input.weui-check")) {
             $("#qtypedx input.weui-check")[i].checked = false;
         }
-        for (i in rightA) {
+        /*for (i in rightA) {
             $("#qtypedx input.weui-check")[trans[rightA[i]]].checked = true;
             $("#qtypedx label :eq(" + trans[rightA[i]] + ")").removeClass('weui-animate-slide-up');
             $("#qtypedx label :eq(" + trans[rightA[i]] + ")").animateCss('bounceIn');
             weui.topTips('答错啦', 500);
-        }
+        }*/
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
                 $('#okbtnXZ').show();
@@ -196,12 +241,12 @@ function checkAnswerPd(qid) {
         }
     } else {
         wrongs.push(questionData[qid].id);
-        for (i in rightA) {
+        /*for (i in rightA) {
             $("#qtypepd input.weui-check")[rightA[i]?0:1].checked = true;
             $("#qtypepd label :eq(" + rightA[i] ? 0 : 1 + ")").removeClass('weui-animate-slide-up');
             $("#qtypepd label :eq(" + rightA[i] ? 0 : 1 + ")").animateCss('bounceIn');
             weui.topTips('答错啦', 500);
-        }
+        }*/
         setTimeout(function () {
                 generateQuestions(nowQuestion + 1);
                 for (i in $("#qtypepd input.weui-check")) {
@@ -264,15 +309,15 @@ function genTitles() {
     });
 }
 $(function () {
-    var vConsole = new VConsole();
+    //var vConsole = new VConsole();
     setTimeout(function () {
-        $('#__vconsole > div.vc-switch').text('调试器');
-        $('#__vconsole').hide()
-        myIMEI = device.uuid;
+        //$('#__vconsole > div.vc-switch').text('调试器');
+        //$('#__vconsole').hide()
+        myIMEI = localStorage.myIMEI//device.uuid;
         if (myIMEI == null) {
             myIMEI = 'GUESTUUID'
             weui.topTips('无法读取您的登录信息，当前为访客模式')
-            SERVER_IP = 'http://localhost:5000';
+            //SERVER_IP = 'http://localhost:5000';
         }
         genTitles()
         $.ajax({
@@ -299,7 +344,8 @@ $(function () {
                 weui.topTips('不可为空');
                 return 'blank input'
             }
-
+            localStorage.setItem('myIMEI','GUEST.'+ hash($("#inputNickDialog > div >input")[0].value));
+            myIMEI= 'GUEST.'+ hash($("#inputNickDialog > div >input")[0].value);
             $("#inputNickDialog").hide();
             url = SERVER_IP + '/user/' + myIMEI + '/setnick/' + $("#inputNickDialog > div >input")[0].value + '';
             url = encodeURI(encodeURI(url))
